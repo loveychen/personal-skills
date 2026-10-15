@@ -1,8 +1,8 @@
 ---
 name: paper-deep-reading
-description: "Use when closely reading a named LLM, AI agent or other AI research paper: 论文精读、交互陪读、由浅入深、公式推导、实验解读、文献旁证、批判性阅读笔记, comparing a small named set, or resuming that session. Also supports non-AI papers. Not for standalone paper discovery, translation, skill authoring, manuscript editing or formal referee reports."
+description: "用于具体论文的深度交互阅读，重点覆盖大型语言模型、智能体及相关人工智能研究，适合由浅入深讲解、可拖拽旋转的二维或三维交互式动态图、公式推导、实验解读、文献旁证、批判性笔记、少量具名论文比较与断点续读。也支持其他领域论文。不用于独立检索新论文、仅翻译、创建技能、修改投稿稿件或撰写正式审稿意见。"
 metadata:
-  version: "1.1.0"
+  version: "1.2.0"
 ---
 
 # 论文深度交互共读
@@ -35,11 +35,18 @@ metadata:
 | LLM、后训练、推理、RAG、模型评测 | [llm-reading.md](references/llm-reading.md)：数据/目标/采样/筛选链，能力与预算归因，污染与 judge |
 | Agent、工具、多 Agent、环境交互 | [agent-reading.md](references/agent-reading.md)：模型与 harness、一次轨迹、状态验证、可靠性与成本 |
 | 公式、证明、图表或复现 | [technical-reading.md](references/technical-reading.md)：符号、推导条件、证据与类型适配 |
+| 抽象概念、时间演化或空间关系 | [visual-explanations.md](references/visual-explanations.md)：实际生成可控制的二维或三维动态图，连接原文与直觉 |
 | 概念来历、前作、比较、争议 | [literature-and-evidence.md](references/literature-and-evidence.md)：针对疑点查源、比较机制、返回主线 |
 | 评价论文、写阅读笔记或批判性段落 | [critical-writing.md](references/critical-writing.md)：善意重建、论证连接、替代解释、校准措辞 |
 | 保存或恢复进度 | [session-state.md](references/session-state.md)：已读范围、理解状态、版本与下一锚点 |
 
 只读本轮需要的参考；混合论文可组合，不默认整包加载。检查表是选项，不是每轮报告模板。
+
+## 动态图解释
+
+讲解新的抽象核心机制时，默认选一个适合的关系实际生成二维或三维交互式动态图，配合本轮问题解释；不要只给制图建议、伪代码或用静态图冒充动态成果。二维适合概率、矩阵、流程和时间变化，三维用于确实需要空间关系的概念。图应能暂停、逐步观察或调整关键变量；三维支持画布直接拖拽旋转、缩放与复原视角，二维按需要支持拖动参数、时间轴、节点选择或平移缩放，帮助读者主动探索变化。
+
+教学模型与论文实测数据明确分开；标清符号、量纲、假设和简化边界。不为装饰强加三维，不每轮重复画图。用户只要文本、简单事实问题或当前关系没有动态解释价值时，直接遵从。工具受限就明确交付范围，不能声称动画已生成或已验证。
 
 ## 证据底线
 

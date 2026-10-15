@@ -1,14 +1,26 @@
-# Personal Skills
+# 个人提效技能库
 
 个人提效技能库：把经常重复的工作方法保存为可复用的 Agent Skills，按需安装到 Codex 或其他支持技能的助手。
 
 ## 技能目录
 
-| Skill | 用途 | 调用示例 |
+| 技能 | 用途 | 调用示例 |
 |---|---|---|
-| [paper-deep-reading](skills/paper-deep-reading/SKILL.md) | 聚焦 LLM / Agent：交互精读机制与实验、预算与系统归因、文献旁证、批判性笔记及断点续读 | `用 $paper-deep-reading 陪我精读这篇 Agent 论文，从一次行动开始，再核对证据。` |
+| [paper-deep-reading](skills/paper-deep-reading/SKILL.md) | 聚焦大型语言模型与智能体：用二维或三维动态图交互精读概念，核对机制、实验与前作，形成批判性笔记并断点续读 | `用 $paper-deep-reading 陪我精读这篇论文，并为适合的核心概念生成可控制的二维或三维动态图。` |
 
-论文技能当前为 **1.1.0**，包含八份按需参考材料，不需要模型 API key 或额外服务；非 AI 论文也保留通用路径。方法依据见 [来源与取舍](skills/paper-deep-reading/references/sources.md)，专项调研见 [LLM / Agent 阅读方法研究](docs/research/llm-agent-paper-reading.md)，验证范围见 [1.1.0 验证记录](docs/validation-v1.1.md) 与 [历史记录](docs/validation.md)。
+论文技能当前为 **1.2.0**，描述与界面文案统一为中文，包含九份按需参考材料。新增 [动态解释规范](skills/paper-deep-reading/references/visual-explanations.md)：实际生成可暂停、逐步观察或调参的交互式动态图；三维支持画布直接拖拽旋转、缩放及复原视角，二维按需支持拖动参数、时间轴、节点或平移缩放。图中标明教学简化与论文数据，二维讲得清时不强加三维。无需额外模型服务或密钥，非人工智能论文也保留通用路径。方法依据见 [来源与取舍](skills/paper-deep-reading/references/sources.md)，专项调研见 [阅读方法研究](docs/research/llm-agent-paper-reading.md)，历史检查见 [1.1.0 记录](docs/validation-v1.1.md)，本次检查见 [维护与动态解释验证](docs/validation-maintenance.md)。
+
+## 项目维护技能
+
+项目协作规则在 [AGENTS.md](AGENTS.md)。以下技能位于 `.agents/skills/`，用于维护本仓库，未安装到全局：
+
+| 技能 | 用途 | 调用 |
+|---|---|---|
+| [技能设计](.agents/skills/personal-skill-design/SKILL.md) | 界定需求、触发、最小结构与验证场景 | `$personal-skill-design` |
+| [技能评审](.agents/skills/personal-skill-review/SKILL.md) | 定位范围、规则、证据与维护成本问题 | `$personal-skill-review` |
+| [技能验证发布](.agents/skills/personal-skill-release/SKILL.md) | 按改动验证，并在授权范围内同步安装和仓库 | `$personal-skill-release` |
+
+在本仓库或其子目录开展任务时使用；不要把仓库维护技能当作论文阅读技能安装到所有项目。完整约定见 [质量检查](docs/quality-gates.md)。
 
 ## 快速开始
 
@@ -63,15 +75,22 @@ CLI 安装与手工安装是两套管理方式。CLI 当前为 Codex 使用 `~/.
 
 ```text
 personal-skills/
+├── AGENTS.md
+├── .agents/skills/
+│   ├── personal-skill-design/
+│   ├── personal-skill-review/
+│   └── personal-skill-release/
 ├── README.md
 ├── CHANGELOG.md
 ├── docs/
 │   ├── management.md
 │   ├── adding-skills.md
 │   ├── skill-authoring-practices.md
+│   ├── quality-gates.md
 │   ├── research/llm-agent-paper-reading.md
 │   ├── validation.md
-│   └── validation-v1.1.md
+│   ├── validation-v1.1.md
+│   └── validation-maintenance.md
 ├── evals/paper-deep-reading/
 └── skills/
     └── paper-deep-reading/

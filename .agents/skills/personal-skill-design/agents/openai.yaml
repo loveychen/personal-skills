@@ -1,0 +1,6 @@
+interface:
+  display_name: "技能设计"
+  short_description: "为个人技能界定触发范围、输入输出与最小结构，并设计可观察的验证场景"
+  default_prompt: "用 $personal-skill-design 为这个重复任务设计一个范围明确、结构精简、可验证的技能。"
+policy:
+  allow_implicit_invocation: true

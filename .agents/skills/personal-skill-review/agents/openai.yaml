@@ -1,0 +1,6 @@
+interface:
+  display_name: "技能评审"
+  short_description: "评审技能的触发、规则、证据和维护成本，按影响给出定位明确的修改建议"
+  default_prompt: "用 $personal-skill-review 评审这份技能或本次改动，指出具体问题、影响和最小修改建议。"
+policy:
+  allow_implicit_invocation: true

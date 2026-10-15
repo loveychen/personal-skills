@@ -1,6 +1,6 @@
 interface:
   display_name: "论文深度交互共读"
-  short_description: "聚焦 LLM 与 Agent，交互精读方法与实验，追踪前作并写有依据的批判性笔记"
-  default_prompt: "用 $paper-deep-reading 陪我精读这篇 LLM 或 Agent 论文，由浅入深解释机制，核对实验归因，联系前作并形成有依据的阅读笔记。"
+  short_description: "用可拖拽、旋转、调参的二维或三维交互式动图辅助共读，逐步理解论文机制与证据"
+  default_prompt: "用 $paper-deep-reading 陪我精读这篇论文，为适合的概念实际生成二维或三维交互式动态图，支持拖拽、旋转和调参，再核对证据与前作。"
 policy:
   allow_implicit_invocation: true
