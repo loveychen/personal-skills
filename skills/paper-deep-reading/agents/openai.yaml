@@ -1,0 +1,6 @@
+interface:
+  display_name: "论文深度交互共读"
+  short_description: "由浅入深共读论文，拆解公式图表、核查证据、关联文献并保存阅读断点"
+  default_prompt: "用 $paper-deep-reading 陪我读这篇论文，从直觉开始，按我的理解逐步深入，并在需要时查证相关文献。"
+policy:
+  allow_implicit_invocation: true
