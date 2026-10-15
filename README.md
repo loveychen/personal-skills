@@ -6,9 +6,9 @@
 
 | Skill | 用途 | 调用示例 |
 |---|---|---|
-| [paper-deep-reading](skills/paper-deep-reading/SKILL.md) | 论文深度交互共读：由浅入深、公式与图表拆解、文献旁证、证据核查、断点续读 | `用 $paper-deep-reading 陪我精读这篇论文，从直觉开始逐步深入。` |
+| [paper-deep-reading](skills/paper-deep-reading/SKILL.md) | 聚焦 LLM / Agent：交互精读机制与实验、预算与系统归因、文献旁证、批判性笔记及断点续读 | `用 $paper-deep-reading 陪我精读这篇 Agent 论文，从一次行动开始，再核对证据。` |
 
-论文技能包含独立编写的流程和五份按需参考材料，不需要模型 API key 或额外服务。方法依据见 [来源与取舍](skills/paper-deep-reading/references/sources.md)，验证范围见 [验证记录](docs/validation.md)。
+论文技能当前为 **1.1.0**，包含八份按需参考材料，不需要模型 API key 或额外服务；非 AI 论文也保留通用路径。方法依据见 [来源与取舍](skills/paper-deep-reading/references/sources.md)，专项调研见 [LLM / Agent 阅读方法研究](docs/research/llm-agent-paper-reading.md)，验证范围见 [1.1.0 验证记录](docs/validation-v1.1.md) 与 [历史记录](docs/validation.md)。
 
 ## 快速开始
 
@@ -57,6 +57,7 @@ CLI 安装与手工安装是两套管理方式。CLI 当前为 Codex 使用 `~/.
 - 阅读进度保存在论文项目内的 `.paper-reading/`，不会自动推送到本仓库。
 - 修改仓库内容后提交并推送，再更新本机安装；`git pull` 只更新仓库工作副本。
 - 新增技能见 [新增与维护技能](docs/adding-skills.md)。
+- 技能编写方法见 [Skills 写作技巧](docs/skill-authoring-practices.md)；阅读评论的具体写法见 [批判性思考与写作](skills/paper-deep-reading/references/critical-writing.md)。
 
 ## 仓库结构
 
@@ -67,7 +68,11 @@ personal-skills/
 ├── docs/
 │   ├── management.md
 │   ├── adding-skills.md
-│   └── validation.md
+│   ├── skill-authoring-practices.md
+│   ├── research/llm-agent-paper-reading.md
+│   ├── validation.md
+│   └── validation-v1.1.md
+├── evals/paper-deep-reading/
 └── skills/
     └── paper-deep-reading/
         ├── SKILL.md
