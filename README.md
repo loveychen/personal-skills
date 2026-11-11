@@ -7,8 +7,12 @@
 | 技能 | 用途 | 调用示例 |
 |---|---|---|
 | [paper-deep-reading](skills/paper-deep-reading/SKILL.md) | 聚焦大型语言模型与智能体：用二维或三维动态图交互精读概念，核对机制、实验与前作，形成批判性笔记并断点续读 | `用 $paper-deep-reading 陪我精读这篇论文，并为适合的核心概念生成可控制的二维或三维动态图。` |
+| [debate-driven-design](skills/debate-driven-design/SKILL.md) · [使用手册](skills/debate-driven-design/docs/usage.html) | 组织多角色质询、查证和多轮修订，形成有依据且各方明确接受的具体方案 | `使用 $debate-driven-design，比较这两个方案并推进到明确结论，保留验证边界。` |
+| [prompt-coach](skills/prompt-coach/SKILL.md) · [使用手册](skills/prompt-coach/docs/usage.html) | 交付后复盘指令、提供两个完整后续请求，也支持按需练习批判性思考 | `使用 $prompt-coach，复盘我这次指令，并给出两个可直接使用的下一步请求。` |
 
 论文技能当前为 **1.2.0**，描述与界面文案统一为中文，包含九份按需参考材料。新增 [动态解释规范](skills/paper-deep-reading/references/visual-explanations.md)：实际生成可暂停、逐步观察或调参的交互式动态图；三维支持画布直接拖拽旋转、缩放及复原视角，二维按需支持拖动参数、时间轴、节点或平移缩放。图中标明教学简化与论文数据，二维讲得清时不强加三维。无需额外模型服务或密钥，非人工智能论文也保留通用路径。方法依据见 [来源与取舍](skills/paper-deep-reading/references/sources.md)，专项调研见 [阅读方法研究](docs/research/llm-agent-paper-reading.md)，历史检查见 [1.1.0 记录](docs/validation-v1.1.md)，本次检查见 [维护与动态解释验证](docs/validation-maintenance.md)。
+
+两个新增技能按 2026-11-11 的来源工作区快照同步，保留包内 MIT 许可证、参考资料和独立 HTML 手册。同步范围、结构检查与未验证项见[同步验证记录](docs/validation-skills-sync-20261111.md)。
 
 ## 项目维护技能
 
@@ -91,8 +95,13 @@ personal-skills/
 │   ├── validation.md
 │   ├── validation-v1.1.md
 │   └── validation-maintenance.md
-├── evals/paper-deep-reading/
+├── evals/
+│   ├── paper-deep-reading/
+│   ├── debate-driven-design/cases.json
+│   └── prompt-coach/cases.json
 └── skills/
+    ├── debate-driven-design/ # 含参考、许可证和 HTML 手册
+    ├── prompt-coach/         # 含参考、许可证和 HTML 手册
     └── paper-deep-reading/
         ├── SKILL.md
         ├── agents/openai.yaml

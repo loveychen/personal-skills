@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>指令与思考教练 · 使用手册</title>
+  <style>
+    :root{color-scheme:light;--ink:#173042;--muted:#536b79;--line:#d6e3e8;--accent:#126f78;--bg:#f3f7f9;--paper:#fff}
+    *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.75 system-ui,-apple-system,"PingFang SC",sans-serif}main{max-width:1000px;margin:auto;padding:48px 28px 64px}header{padding-bottom:26px;border-bottom:1px solid var(--line)}h1{font-size:38px;line-height:1.25;letter-spacing:-1px;margin:10px 0 16px}h2{font-size:25px;margin:36px 0 14px}h3{font-size:18px;margin:0 0 8px}p{margin:10px 0}a{color:var(--accent);text-underline-offset:3px}nav{display:flex;flex-wrap:wrap;gap:8px 20px;margin-top:20px}.eyebrow{color:var(--accent);font-size:13px;font-weight:700;letter-spacing:.1em}.lead{font-size:20px;max-width:820px}.muted,figcaption{color:var(--muted)}.cards,.lanes{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.card,.step{padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--paper);min-width:0}.tag{color:var(--accent);font-size:13px;font-weight:700}.note{border-left:4px solid var(--accent);background:#e9f3f3;padding:12px 18px;margin:20px 0}ul,ol{padding-left:24px}li+li{margin-top:6px}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#102d3d;color:#eff7f8;padding:20px;border-radius:10px;font:14px/1.8 ui-monospace,SFMono-Regular,Consolas,monospace}code{font-size:.9em;overflow-wrap:anywhere}pre code{font-size:inherit}.flow{max-width:850px;margin:auto}.connector{text-align:center;font-size:25px;line-height:1.6;color:var(--accent)}.step strong{display:block;color:var(--accent)}.gate{display:grid;grid-template-columns:minmax(0,3fr) 36px minmax(0,2fr);align-items:center;gap:8px}.skip{border-style:dashed;background:#edf2f5}figure{margin:18px 0}figcaption{font-size:14px;margin-top:12px}.example{border-left:3px solid var(--line);padding-left:18px}.checklist li::marker{color:var(--accent)}footer{margin-top:36px;padding-top:18px;border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+    .flow-label{font-size:14px;vertical-align:middle}
+    @media(max-width:640px){main{padding:26px 18px 40px}h1{font-size:29px}.lead{font-size:18px}.cards,.lanes{grid-template-columns:1fr}.card,.step{padding:16px}.gate{display:block}.gate .connector{display:none}.gate .skip{margin:12px 0 0 20px;border-left:3px dotted var(--line)}h2{font-size:22px}pre{padding:15px;font-size:13px}}
+  </style>
+</head>
+<body><main>
+  <header>
+    <div class="eyebrow">PROMPT COACH · 使用手册</div>
+    <h1>在协作中练习提问与判断</h1>
+    <p class="lead">交付后可以复盘指令并获得可复制的下一步请求。普通对话中也可以开启思考提示，练习检查假设、证据和结论。</p>
+    <p class="muted">适合希望边工作边改进任务表达的人。先完成工作，再给反馈；既不替代主任务，也不要求每条指令写成长篇模板。</p>
+    <nav aria-label="手册目录"><a href="#install">安装与验证</a><a href="#start">如何开始</a><a href="#workflow">复盘流程</a><a href="#thinking">思考提示</a><a href="#outputs">复盘输出</a><a href="#writing">写作要求</a><a href="#example">具体示例</a><a href="#check">怎样判断有用</a><a href="#limits">验证边界</a></nav>
+  </header>
+
+  <section id="install"><h2>安装与验证</h2>
+    <p>先从维护者提供的可信地址取得包含本技能的仓库，并在终端进入仓库根目录。需要 Node.js、npm/npx 和包管理网络；安装前检查目标助手及是否已有同名技能。项目级与用户级安装范围不同，请按实际需求选择。</p>
+    <pre><code># 在已取得的仓库根目录，先查看可安装技能
+npx skills add . --list
+# 只安装本技能到所选助手的用户级目录，按提示选择助手
+npx skills add . --skill prompt-coach --global</code></pre>
+    <p>如使用项目级安装，在目标项目目录执行 <code>npx skills add &lt;仓库路径&gt; --skill prompt-coach</code>。仓库地址和版本由分发者提供；若使用浮动分支，安装结果可能随版本变化。选择复制时，之后的更新需要重新安装；选择链接时，源目录移动或删除会使链接失效。</p>
+    <p>也可手动将完整的 <code>skills/prompt-coach</code> 目录复制到助手支持的技能目录，保留 <code>SKILL.md</code>、<code>references/</code> 和许可证。已有同名技能时先比较并备份，避免覆盖不同版本。以下是常见用户级入口，实际路径可能受版本、配置或运行环境影响：</p>
+    <ul><li>Codex：<code>~/.agents/skills/prompt-coach</code>。</li><li>DSH：<code>~/.agents/skills/prompt-coach</code> 或 <code>~/.dsh/skills/prompt-coach</code>；需启用文件系统技能提供器和 skill 工具。</li><li>Claude Code：<code>~/.claude/skills/prompt-coach</code>。</li><li>Pi coding agent：<code>~/.pi/agent/skills/prompt-coach</code> 或 <code>~/.agents/skills/prompt-coach</code>。</li></ul>
+    <p>参考官方说明：<a href="https://github.com/vercel-labs/skills">Skills CLI</a>、<a href="https://github.com/deepseek-ai/deepseek-harness/blob/master/docs/subsystems/skills.md">DSH</a>、<a href="https://code.claude.com/docs/en/skills">Claude Code</a>、<a href="https://github.com/earendil-works/pi/blob/main/packages/coding-agent/docs/skills.md">Pi</a>。不同宿主对路径和调用命令的支持可能变化，以实际版本为准。</p>
+    <h3>安装后分步检查</h3>
+    <ol><li>开始一个新会话，查看助手的技能列表或让它报告是否发现 <code>prompt-coach</code>；管理器列出名称不等于助手已加载。</li><li>明确要求“使用 prompt-coach 复盘一个模拟任务”，核查工具记录或助手可见的加载信息，确认正文及参考资料可访问；Claude Code 可用 <code>/prompt-coach</code>，Pi 可用 <code>/skill:prompt-coach</code>，其他宿主按其界面调用。</li><li>在新会话提交一个不提 Skill 名称的普通任务；检查先交付结果、再给复盘和两个可复制请求。另测“只给结果”是否跳过附录。记录宿主版本、模型、输入和实际结果；如需要，再配置下方的可选约定并分别验证。</li></ol>
+    <p>找不到时检查安装范围、同名覆盖、完整目录和宿主的技能功能是否开启；能显式调用但未自动追加时，检查目录和模型选择、是否实际加载技能、可选常驻指令是否生效及是否有更具体的例外。单次成功不证明每轮稳定触发或反馈质量达标。</p>
+  </section>
+
+  <section id="start"><h2>如何开始</h2>
+    <p>需要支持 Agent Skills 的助手，以及本次请求、关键约束和交付结果。材料已经在同一对话中时，可以直接引用，不必重新整理全部记录。这个技能没有必需的模型 API、脚本或内部服务依赖。</p>
+    <pre><code>使用 prompt-coach，在完成当前任务、给出结果后，
+对照原话和实际结果，检查逻辑结构、术语与可读性，
+给出最小必要的改写或保留示例，
+解释这处表达如何影响执行选择，而不只评价“更明确”。
+再给两个基于实际结果的下一步请求，用独立代码块展示完整正文，
+说明为什么值得做、会推进什么判断，以及适用条件。</code></pre>
+    <div class="note"><strong>默认行为与可选约定：</strong>本技能设计为任务交付后提供复盘，但宿主可能不会自动加载。希望进一步明确这一偏好时，可自行在助手支持的用户级指令或项目约定中追加下面的规则；先检查现有文件，勿覆盖已有配置。Codex 常用 <code>~/.codex/AGENTS.md</code>，DSH 常用 <code>~/.dsh/AGENTS.md</code>（自定义 home 或 profile 可能不同）；Claude Code 和 Pi 请按各自官方文档配置。</div>
+    <pre><code>完成当前有效任务并交付结果后，使用 prompt-coach：
+对照原指令、当时上下文和实际结果，给出一个可复制的改写或保留示例及具体理由；
+再给两个基于结果、各自完整可复制的下一步请求，并说明价值和限制。
+只给结果、严格格式或关闭附录时遵循用户要求；只关闭一部分时保留另一部分。
+进度、纯确认、状态询问和未完成任务不强加附录，不自动执行建议。</code></pre>
+    <p>安装 Skill 本身不会修改常驻规则，也不保证每轮触发；用户可按个人偏好补充术语和表达要求。</p>
+    <p>只想看结果时说“这次只给结果，不要附录”；也可以只关闭复盘或只关闭下一步建议。对于已经结束的任务，明确指定要分析的请求及结果。</p>
+  </section>
+
+  <section id="workflow"><h2>工作流程</h2>
+    <figure data-workflow-diagram aria-label="先交付主任务，判断是否添加附录，再分别回顾指令和设计下一步，检查后交付">
+      <div class="flow">
+        <div class="step" data-step="deliver"><strong>1 · 完成主任务并给出结果</strong><p>结合当前有效请求、后续纠正和实际证据；尚未完成时继续推进或报告阻塞。</p></div>
+        <div class="connector" data-flow-connector aria-hidden="true">↓</div>
+        <div class="gate">
+          <div class="step" data-step="gate"><strong>2 · 按本次要求决定是否追加</strong><p>正常交付进入下方两部分；用户只关闭一部分时，保留另一部分。</p></div>
+          <div class="connector" data-flow-connector aria-hidden="true">→</div>
+          <div class="step skip" data-step="skip"><strong>例外：只给结果 / 严格格式</strong><p>仅交付主结果，到此结束。</p></div>
+        </div>
+        <div class="connector" data-flow-connector><span class="flow-label">常规交付</span> <span aria-hidden="true">↓</span></div>
+        <div class="lanes">
+          <div class="step" data-step="review"><strong>3A · 回顾这次怎么说</strong><p>对照原话与实际执行，检查任务选择和表达组织；给出最小改写或保留示例，以及对应的理由。</p><p>不要求用户预知事后才发现的根因。</p></div>
+          <div class="step" data-step="next"><strong>3B · 设计下一步怎么问</strong><p>使用本次新结果，写两个独立完整的请求；解释推进价值及重要限制。</p><p>有依据才排序，有依赖则写清条件。</p></div>
+        </div>
+        <div class="connector" data-flow-connector aria-hidden="true">↓</div>
+        <div class="step" data-step="check"><strong>4 · 检查理由与可复制性，再交付</strong><p>遮住其他段落，每条请求仍能开始执行；去掉来源链接，理由仍能由本次事实支撑。建议等待你选择，不自动执行。</p></div>
+      </div>
+      <figcaption>图中两部分服务于不同目标：回顾学习已有表达，下一步利用新事实推进工作。完整收尾时，后续方向会标为可选，不制造额外必做任务。</figcaption>
+    </figure>
+  </section>
+
+  <section id="thinking"><h2>日常对话中的思考提示</h2>
+    <p>可以直接说「请用 prompt-coach 在这个聊天里给我思考提示」。如果希望新会话也使用，可以在宿主支持的用户级指令中加入这项偏好。新会话可用一条包含具体推断的普通消息检查是否触发，再用「只给结果」检查是否能跳过。</p>
+    <figure data-workflow-diagram aria-label="按需回应当前问题、处理证据缺口并邀请用户判断">
+      <div class="flow">
+        <div class="step" data-step="thinking-answer"><strong>1 · 回应当前问题</strong><p>助手先核对能查证的内容，把重要事实和证据边界放进正文。</p></div>
+        <div class="connector" data-flow-connector aria-hidden="true">↓</div>
+        <div class="gate">
+          <div class="step" data-step="thinking-choice"><strong>2 · 留下值得你亲自判断的点</strong><p>如能检查假设、练习预测，或由你决定一项取舍，继续下面一步。</p></div>
+          <div class="connector" data-flow-connector aria-hidden="true">→</div>
+          <div class="step skip" data-step="thinking-skip"><strong>这轮直接回应</strong><p>适用于没有值得提示的判断、只给结果或关闭提示的情形。</p></div>
+        </div>
+        <div class="connector" data-flow-connector aria-hidden="true">↓</div>
+        <div class="step" data-step="thinking-signal"><strong>3 · 先问，再点明思考模式</strong><p>若有多个会改变判断的角度，在同一轮按重要程度列出。你可以只接最想想的一问。</p></div>
+      </div>
+      <figcaption>思考提示可以单独出现。交付后也适用指令复盘时，同一个发现只说一次。</figcaption>
+    </figure>
+    <p>例如，你说「换到窗边后写得更顺，以后一直坐窗边就好」。助手可以问「那天也没开会，如果还是在原座位，你会预期同样专注吗？」然后点明这是在找替代原因。若还值得考虑结论是否适用于其他工作，可以同一轮指出。</p>
+    <p>也可以说「用一个具体例子，只改一个条件，让我先预测」。助手等你回答后再对照证据、点明模式。可以留意之后遇到另一个话题时，你会不会自己想到同样的问法。<a href="../references/critical-thinking.md">查看思考提示与练习规则</a></p>
+  </section>
+
+  <section id="outputs"><h2>指令复盘会给出什么</h2>
+    <div class="cards">
+      <div class="card"><div class="tag">回顾 · 学会判断</div><h3>一个示例，两三条具体理由</h3><p>从原话和产物中指出哪处表达影响了执行，解释改写与原话的实际差别、取舍和适用条件。已有要求被忽略时，明确归为执行偏差；原指令充分且符合文体偏好时可保留。</p></div>
+      <div class="card"><div class="tag">前瞻 · 能直接使用</div><h3>两个完整下一步请求</h3><p>必要背景、资料入口、行动、范围和预期产出都在各自代码块内。标题可以短，正文不藏在按钮里；推荐理由在正文外。</p></div>
+    </div>
+    <p>反馈会区分指令缺项、代理执行偏差、环境限制与证据不足；来源只支持相应方法，不替当前任务证明原因、排序或收益。公开原例和根据方法生成的示例会分别标注。</p>
+  </section>
+
+  <section id="writing"><h2>指令也要有好的写作结构</h2>
+    <p>复盘不仅看要求是否齐全，也看读者能否顺着文字准确理解它。下面三项按实际问题检查，不要求每次填表或给分。</p>
+    <ul><li><strong>逻辑结构：</strong>目标、背景、行动、约束和交付关系清楚；同层信息分组，条件靠近对应动作，先后和例外不被重排改变。</li><li><strong>专业性：</strong>术语准确、概念一致，保留必要技术标识；用具体对象和动作替代无信息的黑话，保持文体所需的正式程度。</li><li><strong>可读性：</strong>主体和指代明确，句段按意思组织，长句可拆但不丢限定；短而清楚且符合文体偏好的请求可以原样保留。</li></ul>
+    <p><strong>希望纠正口语化习惯时，可以明确告诉助手。</strong>它会指出原说法对应的概念，建议领域通行、定义适用的术语，并用短解释或例子帮助理解；不会以保留原口吻为由跳过校正。没有合适术语时，用准确的普通工作表达，不生造听起来专业的名称。原意、逻辑结构和可读性仍优先。</p>
+    <p>例如，修改后“看看以前能用的功能有没有被弄坏”可用“回归测试”说明检查目的；同一申请重复提交不应多建工单，可用“幂等性”说明预期效果，并附一句释义。“加个兜底”则不能直接等同于某种重试或回滚机制，需要先明确失败后的期望行为。概念来源与适用边界见<a href="../references/writing-quality.md">通行术语的使用示例</a>。</p>
+    <div class="note"><strong>纯写作调整保持行为不变。</strong>“且”不能变成“或”，“仅当”不能丢，建议不能升级为必须，分析不能变成已实施。字段、模板变量、路径和精确字符串不随文风改写；原文冲突另行说明。</div>
+    <p>例如，将“只有三项条件均一致才比较，否则列差异；所有情况都不补跑”拆成分支时，三项条件必须仍是共同前提，“不补跑”也必须仍覆盖两个分支。具体写法见<a href="../references/writing-quality.md">指令写作检查与示例</a>。</p>
+    <p>如果解释仍抽象，可以让助手用“原句—改写—为什么”逐项对照，必要时再给一个会改变含义的错误改法。多个例子应分别说明不同难点；模拟例子会明确标注。</p>
+  </section>
+
+  <section id="example"><h2>一个具体示例</h2>
+    <p class="muted">以下内容均为模拟，用来展示解释方式，不是专家原话或真实用户案例。</p>
+    <div class="example"><p><strong>原请求：</strong>把上线说明改成一线客服能快速阅读的通知，150 字以内，保留生效时间、操作和求助渠道，只写不发送。</p><p><strong>已交付：</strong>通知符合要求，没有遗漏或发送。</p><p><strong>有用的回顾：</strong>原指令已充分，可原样保留。“150 字以内”允许压缩措辞，但三项必留信息限定了压缩的边界：不能为了变短而删掉异常求助渠道。只给字数限制时，助手可能把删掉关键信息也当作简化；同时说明读者要完成的动作，才把这个取舍交代清楚。以后需要短文案时可以复用这种写法；具体句序和同义表达仍交给助手。</p></div>
+    <p>如果你想演示另一种阅读方式，完整下一步请求可以这样写：</p>
+    <pre><code>请把下面这份已完成的模拟上线通知改成一份客服快速问答，
+用于读者只想查某一项信息的情况；只在回复中提供内容，不发送。
+
+已有通知：新版客服工作台将于 11 月 1 日 09:00 启用。
+客服当日上班前刷新页面，确认工单列表正常；异常时保留错误提示，
+联系值班群。现有账号和权限不变，无需安装客户端。
+
+仅依据这些事实，围绕启用时间、上班前操作、异常求助、账号权限
+和安装要求组织简短问答。不得补写未知的群名、排障步骤或服务承诺。
+交付完整问答，以五类信息均可定位、事实不变为完成依据。
+这是新的可选用途，不需要重做已经达标的通知。</code></pre>
+    <p><strong>为什么值得这样问：</strong>连续阅读的通知已经完成。问答只在读者需要查单项信息时有额外价值；如果没有这种使用需求，就无需继续做。这说明的是用途和取舍，不是在制造原文缺陷。</p>
+    <p>通常输出会有两个不同方向；这里仅展示一条的完整程度。更多方法见<a href="../references/coaching-quality.md">教练理由示例</a>和<a href="../references/follow-up-examples.md">完整追问示例</a>。</p>
+  </section>
+
+  <section id="check"><h2>怎样判断反馈是否有用</h2>
+    <p>先看它是否区分三种情况：确实缺少用户意图，才建议补最少的信息；原要求被忽略，应承认执行偏差；原指令充分，就解释有效取舍而不硬找问题。后来澄清的用途可以合并到下次请求，不能说成你一开始就已明确。</p>
+    <ul class="checklist">
+      <li>能指出下次应保留或调整哪句话，并解释适用条件。</li><li>结构、术语或句式的调整有具体作用，且没有改变条件、权限和要求强度。</li>
+      <li>理由关联本次事实，不是换个任务也能原样使用的赞扬或口号。</li>
+      <li>两个下一步请求推动不同判断，存在依赖时条件写在正文里。</li>
+      <li>单独复制一个代码块，不需要再拼接原回复才能开始执行。</li>
+      <li>不能确认的事实仍为未知；提出建议没有被表述成已经执行。</li>
+    </ul>
+    <p>如果反馈没做到这些，可以直接指出实际障碍，例如“这条只给了方向，没有说明要交付什么”或“理由没有解释为什么现在应优先做”。无需为了得到改进而先写一份完整评测报告。</p>
+  </section>
+
+  <section id="limits"><h2>当前验证边界</h2>
+    <p>核心规则沿用经过有限显式试用的版本，本仓库新增通用合成用例用于后续核对。既有试用检查过完整请求、具体理由、条件性选择和成功任务不强行找错；它不是严格同条件对照，也不证明长期学习收益。</p>
+    <p>结构检查只覆盖约定字段、链接、许可证及手册结构。新宿主的实际发现、每轮触发、全部用例行为与用户学习效果仍需在对应环境验证。没有当前任务证据时，Skill 不应编造历史或专家原话。</p>
+    <p>方法及适用边界见<a href="../references/practices.md">实践来源</a>。教育反馈研究仅提供设计思路，不代表本技能效果已获该研究验证。</p>
+  </section>
+  <p>后续请求引用任务子目录资料时，助手应保留真实位置和所需规则入口；接收者无法访问时，可以内嵌必要片段。不得把候选假设或未提供的信息改写成组织事实。具体例子见<a href="../references/follow-up-examples.md">完整追问的示例与反例</a>。</p>
+  <footer>手册面向使用者，随技能包离线分发，不是模型必读指令。<a href="../SKILL.md">查看技能入口</a> · <a href="../LICENSE">MIT License</a></footer>
+
+</main></body>
+</html>

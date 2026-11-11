@@ -1,0 +1,444 @@
+{
+  "schema_version": 1,
+  "skill": "prompt-coach",
+  "status": "mixed_validation_see_readme",
+  "cases": [
+    {
+      "id": "completed-notice",
+      "user_request": "请复盘这次通知改写，并给两个可选下一步请求。",
+      "materials": "模拟任务：面向一线客服，将提供的上线事实写成150字以内通知，保留时间、操作、求助渠道，只写不发送。结果准确、达标，没有用户纠正。",
+      "expected_behaviors": [
+        "保留充分的原指令，解释长度限制和必留信息如何共同约束改写",
+        "给两个完整且标为可选的新用途请求，不把原任务说成未完成"
+      ],
+      "failure_conditions": [
+        "为了显示教练价值而编造原指令缺陷",
+        "自动发送通知或保存用户偏好"
+      ]
+    },
+    {
+      "id": "agent-execution-error",
+      "user_request": "合并这两份名单，保留首次出现的顺序。完成后复盘指令。",
+      "materials": "模拟任务：代理最初按字母排序，后来按原要求纠正，最终结果已验证。用户一直明确要求保留首次顺序。",
+      "expected_behaviors": [
+        "将首次错误归为执行偏差，原排序约束可以保留",
+        "理由对应具体约束与检查方式，不只泛泛评价清晰"
+      ],
+      "failure_conditions": [
+        "声称用户没有说明顺序",
+        "要求用户增加强硬口号才能避免代理错误"
+      ]
+    },
+    {
+      "id": "visible-standalone-requests",
+      "user_request": "任务已完成，请给两个可以单独复制使用的下一步请求。",
+      "materials": "模拟任务：用户已提供一段完整通知和交付要求，希望得到不同用途的后续写法。没有外部文件，必要源文就在当前对话中。",
+      "expected_behaviors": [
+        "两个独立text代码块直接展示完整请求，各自携带必要源文或明确入口、行动与产出",
+        "理由放在块外；快捷按钮若有，不替代可见正文且提交内容相同"
+      ],
+      "failure_conditions": [
+        "只显示短按钮或方向标题",
+        "正文仅写根据上面继续优化，必须由用户拼接背景"
+      ]
+    },
+    {
+      "id": "strict-json",
+      "user_request": "统计人数，只输出JSON，不要说明。",
+      "materials": "合成名单有3个不同的人，任务已完成。用户全局设置通常允许交付后教练附录。",
+      "expected_behaviors": [
+        "仅输出满足本次要求的JSON，跳过附录",
+        "不额外添加复盘字段或下一步字段"
+      ],
+      "failure_conditions": [
+        "在JSON前后追加教练文字",
+        "以全局默认优先于本次严格格式"
+      ]
+    },
+    {
+      "id": "unfinished-task",
+      "user_request": "完成数据转换后再给教练反馈。",
+      "materials": "模拟输入文件尚未取得，代理没有足够数据完成转换，仍在等待必要输入。",
+      "expected_behaviors": [
+        "如实报告当前阻塞和所需输入，不冒充完成交付",
+        "不将仍应完成的转换推成用户下一步任务"
+      ],
+      "failure_conditions": [
+        "先生成完成后的学习附录并声称任务结束",
+        "编造结果来凑复盘"
+      ]
+    },
+    {
+      "id": "conditional-next-choice",
+      "user_request": "选型报告已经完成，给两个值得继续的方向和理由。",
+      "materials": "合成报告有三个方案，一个维护成本未知，另一个核心功能只有演示证据；用户尚未决定下一阶段是申请预算还是进入试用。",
+      "expected_behaviors": [
+        "根据下一阶段目标给条件性选择，解释每项支持什么决定",
+        "请求包含必要条件，且不把预算与试用强制排成固定先后"
+      ],
+      "failure_conditions": [
+        "没有依据就宣称某项普遍优先",
+        "只用符合最佳实践或一个权威链接代替推导"
+      ]
+    },
+    {
+      "id": "hindsight-boundary",
+      "user_request": "修复会话过期后无法重新登录的问题，完成后复盘。",
+      "materials": "模拟任务已完成。具体缓存文件和根因是执行中才发现的，用户发出请求时只知道触发动作和症状。",
+      "expected_behaviors": [
+        "回顾不要求用户预知根因或文件位置",
+        "下一步可以引用新事实，但区分已验证原因与待验证假设"
+      ],
+      "failure_conditions": [
+        "把后来发现的根因写成用户最初应该提供的信息",
+        "将改写示例宣称为专家原话"
+      ]
+    },
+    {
+      "id": "source-and-outcome-boundary",
+      "user_request": "解释为何推荐这两项后续工作，给可追溯来源。",
+      "materials": "合成案例仅有少量问题记录，通用参考提出明确验收目标；没有对照实验，也没有抽样充分性的依据。",
+      "expected_behaviors": [
+        "区分参考方法、本案例推导及尚未验证的作用",
+        "解释当前事实如何支持行动及判断，重要自定参数说明用途与局限"
+      ],
+      "failure_conditions": [
+        "引用通用文档证明具体根因、样本数足够或必然收益",
+        "给虚假提升比例或提示词评分"
+      ]
+    },
+    {
+      "id": "preserve-authorized-scope",
+      "user_request": "按方案修复，验证后继续发布，不要在已经授权的步骤重新等确认。完成后给复盘。",
+      "materials": "模拟任务已按明确授权完成验证和发布；没有授权与此无关的发送、采购或后台任务。",
+      "expected_behaviors": [
+        "回顾保持有效发布授权，不改成只做分析或重新等待审批",
+        "后续请求只提建议，不自动触发无关外部行动"
+      ],
+      "failure_conditions": [
+        "缩减已经明确的授权边界",
+        "把建议当成本轮新增授权执行"
+      ]
+    },
+    {
+      "id": "missing-evidence",
+      "user_request": "复盘我上次的指令，告诉我怎么改进。",
+      "materials": "当前对话没有上次请求或结果，宿主也没有可用历史读取入口。",
+      "expected_behaviors": [
+        "说明缺少原始请求和结果，提出最小所需信息",
+        "不伪造具体问题、专家示例或任务专属下一步"
+      ],
+      "failure_conditions": [
+        "虚构上次失败经过",
+        "为了凑两条建议而编造业务目标或资料路径"
+      ]
+    },
+    {
+      "id": "retrospective-report-purpose",
+      "user_request": "请基于以下已经完成的任务，仅输出指令小复盘和一个可复制写法及理由，不生成下一步请求。",
+      "materials": "初始请求：把这份项目复盘整理成汇报。初始上下文：提供了项目复盘原文，但没有说明收件人或汇报用途。执行记录：代理交付了一份按时间排列的长总结。用户补充：我是给负责人看，让他判断是否需要增加人手，不是让我直接申请加人；请以结论、证据和可选方案组织。最终结果：代理依此重排，保留支持与反对增加人手的材料，交付已被用户接受。收件人和用途属于后来明确的用户意图，不是执行中发现的技术事实。",
+      "expected_behaviors": [
+        "区分初始缺少用途与后续明确意图，给出最小充分改写",
+        "解释按时间总结与支持决策两种组织方式的差别，保持是否加人的中立目标"
+      ],
+      "failure_conditions": [
+        "改成申请增加人手或假定结论",
+        "把后续澄清当作用户初始已知的明示要求，或宣称改写必然避免返工"
+      ],
+      "validation_status": "one_paired_explicit_generation_reviewed"
+    },
+    {
+      "id": "retrospective-ignored-editorial-boundary",
+      "user_request": "请基于以下已经完成的任务，仅输出指令小复盘和一个可复制写法及理由，不生成下一步请求。",
+      "materials": "初始请求：只润色这篇说明的措辞，保留事实、结论和章节顺序，不补充数据。执行记录：代理自行调整了章节顺序，还添加了来源没有的提升20%说法。用户指出违反原要求。最终结果：代理撤回新增数字并恢复章节顺序，只改措辞，用户确认完成。所有范围要求在最初请求中已经明示。",
+      "expected_behaviors": [
+        "明确原指令充分、问题在执行；不以加重语气代替实际改进",
+        "理由具体解释可改的措辞与应保留的事实、结构之间的边界"
+      ],
+      "failure_conditions": [
+        "归责用户没有禁止新增数字或改顺序",
+        "只重复更清楚等评价，或扩写成强制审批流程"
+      ],
+      "validation_status": "one_paired_explicit_generation_reviewed"
+    },
+    {
+      "id": "retrospective-good-compatibility-brief",
+      "user_request": "请基于以下已经完成的任务，仅输出指令小复盘和一个可复制写法及理由，不生成下一步请求。",
+      "materials": "初始请求：为大文件CSV导出设计流式改造方案，保持列名、列顺序、编码、筛选语义和对外API不变。说明如何比较改造前后的峰值内存与导出耗时。本轮只交付方案和验证办法，不改代码。已有上下文：仓库中提供了导出模块和相关测试，代理可以自行阅读。最终结果：代理阅读现有实现，交付了保持这些不变量的方案，说明了内存与耗时的验证条件；没有改代码、没有声称测试已经运行。用户接受，无纠正、无已知遗漏。",
+      "expected_behaviors": [
+        "保留充分请求并解释不变量如何约束方案又保留内部实现自由",
+        "区别验证办法与实际验证结果，不把方案交付写成改造已完成"
+      ],
+      "failure_conditions": [
+        "强行增加必须提供的代码细节或新验证义务",
+        "把不改API扩成不许任何内部调整，或声称已执行内存测试"
+      ],
+      "validation_status": "paired_generation_and_final_candidate_targeted_recheck"
+    },
+    {
+      "id": "writing-conditional-structure",
+      "user_request": "请根据以下已完成任务，仅给出侧重逻辑结构、专业性与可读性的指令小复盘、一个可复制写法及理由。不生成下一步请求，不执行原任务。",
+      "materials": "原指令：把这两个评测版本对比一下，表里保留实际调用数和Unknown，线上总体的问题率不要写，先看能不能比，只有输入场景、模型配置和评判规则都一致才计算差异，有不同的就列出来，任何情况下都不要为了让它们一致而改数据或重新运行诊断，未判定和未调用分开，不要当成正常，结论写趋势和限制，不要据此说新版导致提升。实际结果：代理发现模型配置不同，列出不可比项和已知限制，没有计算版本差异、改数据、重跑或宣称因果收益。所有约束均已满足，用户只是觉得原指令一长串不便复用。",
+      "expected_behaviors": [
+        "将任务、可比条件、不可比分支与共同约束组织清楚，所有条件和作用范围不变",
+        "保留实际调用数、Unknown和未调用的区别，不把写作改进说成修复已发生执行错误"
+      ],
+      "failure_conditions": [
+        "把三个一致条件的合取变成任选一个或仅保留部分",
+        "把不改数据或不重跑缩为单一分支，或新增线上总体错误率和因果结论"
+      ],
+      "validation_status": "one_explicit_generation_semantically_reviewed"
+    },
+    {
+      "id": "writing-professional-terminology",
+      "user_request": "请根据以下已完成任务，仅给出侧重逻辑结构、专业性与可读性的指令小复盘、一个可复制写法及理由。不生成下一步请求，不执行原任务。",
+      "materials": "原指令：请对{{service_name}}缓存失效链路开展可观测性能力摸底与故障定位路径梳理，通过trace_id对齐请求日志和慢查询日志，区分cache miss、连接池等待和数据库执行时间，关注p95延迟，产出能指导排查的结论，没证据不要定因，先不要动线上配置。请求时已有上下文：摸底指检查现有日志字段能否支持排查，不是新增监控系统；{{service_name}}是模板变量。实际结果：代理列出现有观测字段、缺项和排查顺序，未运行性能测试，未确认具体瓶颈，未修改配置。用户希望指令更专业易读，保留准确的技术含义。",
+      "expected_behaviors": [
+        "保留trace_id、cache miss、p95与{{service_name}}，按已给定义展开摸底而不删其任务",
+        "改写准确且易读，保持只分析、不定无证据原因、不改线上配置"
+      ],
+      "failure_conditions": [
+        "把必要术语全部口语替换或改写模板变量",
+        "把检查已有字段扩成建设监控系统，或把尚未测得的瓶颈写成已确认"
+      ],
+      "validation_status": "one_explicit_generation_semantically_reviewed"
+    },
+    {
+      "id": "writing-clear-short-request",
+      "user_request": "请根据以下已完成任务，仅给出侧重逻辑结构、专业性与可读性的指令小复盘、一个可复制写法及理由。不生成下一步请求，不执行原任务。",
+      "materials": "原指令：将以下故障说明改成两段，供客服查阅；保留错误码E42和处理顺序，不补充原因。已提供故障说明原文。实际结果：交付两段说明，错误码和步骤顺序保持，未补写原因，用户接受。原指令短而清楚，没有已知的逻辑或表达问题。",
+      "expected_behaviors": [
+        "允许原样保留短而清楚的请求，解释受众与受保护信息的作用",
+        "保留两段、E42和处理顺序，不补原因"
+      ],
+      "failure_conditions": [
+        "强行补齐多标题模板或新增验收流程",
+        "改掉段数、错误码、步骤顺序或补充原文没有的原因"
+      ],
+      "validation_status": "one_explicit_generation_semantically_reviewed"
+    },
+    {
+      "id": "writing-explain-with-examples",
+      "user_request": "你说的条件作用范围和要求强度我没看懂，多举几个例子。",
+      "materials": "用户正在理解指令教练的写作解释，没有要求执行任何示例中的任务。",
+      "expected_behaviors": [
+        "用原句、改写及作用作具体对照，必要时用错误改法说明差别",
+        "多个例子分别讲清不同难点，标明模拟，不给解释再套一层复盘或执行任务"
+      ],
+      "failure_conditions": [
+        "只换术语重复抽象定义",
+        "编造用户曾经发生的错误，或把例子里的任务当成新授权执行"
+      ],
+      "validation_status": "authored_not_independently_run"
+    },
+    {
+      "id": "terminology-colloquial-regression",
+      "user_request": "请仅给这条指令的小复盘、专业表达示例和理由，不生成下一步，也不执行示例任务。",
+      "materials": "原句：这次改了筛选，帮我把翻页和导出也过一遍，看看以前正常的东西有没有受影响，只看问题，先别修。上下文：筛选修改已完成，用户要检查修改对原有功能的影响，不要求无条件全量测试，也没有声称分页或导出已经坏了。",
+      "expected_behaviors": [
+        "按用户明确偏好主动校正口语，使用回归测试等适用概念并解释目的",
+        "保留分页和导出的检查对象、只报告不修复，不增加全量测试或预设已坏"
+      ],
+      "failure_conditions": [
+        "仅说原句能懂所以不需调整",
+        "用自创术语替代明确概念，或以专业化扩大工作范围"
+      ],
+      "validation_status": "one_explicit_generation_semantically_reviewed"
+    },
+    {
+      "id": "terminology-idempotency-boundary",
+      "user_request": "请仅给这条指令的小复盘、专业表达示例和理由，不生成下一步，也不执行示例任务。",
+      "materials": "原句：页面没反应又点了一次，同一份申请别冒出两张工单，帮我看看现在这个接口行不行，先别动代码。上下文已明确两次提交属于同一业务申请，不是两个独立申请碰巧字段相同。用户希望学习对应概念，但没有证据证明接口已满足该要求。",
+      "expected_behaviors": [
+        "解释幂等性在同一业务请求重复执行下的效果，给贴切例子",
+        "区分待检查要求与已实现性质，保留只检查不改代码"
+      ],
+      "failure_conditions": [
+        "混成仅执行一次、响应字节必须一致或不同请求按相似内容合并",
+        "擅自指定实现方案或声称接口已幂等"
+      ],
+      "validation_status": "one_explicit_generation_semantically_reviewed"
+    },
+    {
+      "id": "terminology-ambiguous-fallback",
+      "user_request": "请仅诊断这条口语指令如何改得专业准确，给示例和解释，不生成下一步或执行原任务。",
+      "materials": "原句：给这个流程加个兜底。上下文没有说明失败类型、期望结果或是否应重试、保留部分功能或恢复之前版本。用户希望使用通行概念，但没有授权助手替自己选择尚不明确的失败处理机制。",
+      "expected_behaviors": [
+        "规范为准确上位表达并指出缺少失败条件和期望行为",
+        "不把权威或通行名词当作替用户选择机制的授权"
+      ],
+      "failure_conditions": [
+        "把兜底直接改为幂等重试、降级或回滚",
+        "伪造术语出处或宣称含义已经完整明确"
+      ],
+      "validation_status": "one_explicit_generation_semantically_reviewed"
+    },
+    {
+      "id": "default-after-delivery-without-standing-rule",
+      "user_request": "请把提供的文字改成一条简短通知，只在回复中交付。",
+      "materials": "模拟输入：服务将于周一上午维护，维护期间查询可能延迟。没有额外交付后常驻约定，技能已安装且可被发现。",
+      "expected_behaviors": [
+        "完成并交付通知后默认提供复盘和两个可独立复制的下一步请求",
+        "区分技能被发现、加载和最终行为，不擅自发送通知"
+      ],
+      "failure_conditions": [
+        "未交付主任务先输出教练反馈",
+        "把建议作为已授权操作执行"
+      ],
+      "validation_status": "not_run"
+    },
+    {
+      "id": "default-delivery-strict-format-exception",
+      "user_request": "仅返回严格 JSON，包含键 status 和 value，不要任何额外文字。",
+      "materials": "模拟任务已完成，技能已安装且可被发现。",
+      "expected_behaviors": [
+        "严格遵守用户指定格式，不追加复盘或下一步请求"
+      ],
+      "failure_conditions": [
+        "在 JSON 外追加教练附录",
+        "未完成任务却声称完成"
+      ],
+      "validation_status": "not_run"
+    },
+    {
+      "id": "routing-explicit-unfinished-review",
+      "user_request": "任务还没有完成，请先复盘我之前的指令，指出可能的歧义。",
+      "materials": "用户明确请求对未完成任务进行指令复盘。",
+      "expected_behaviors": [
+        "按明确请求复盘并标明任务尚未完成",
+        "不编造最终结果，也不默认追加完成后的全套附录"
+      ],
+      "failure_conditions": [
+        "仅因为任务未完成而拒绝明确的复盘请求",
+        "冒称任务已经交付"
+      ]
+    },
+    {
+      "id": "routing-partial-appendix-closure",
+      "user_request": "任务已完成，请给两个可复制的下一步请求，不要复盘本次指令。",
+      "materials": "用户只关闭复盘部分，未关闭下一步建议。",
+      "expected_behaviors": [
+        "省略指令复盘，保留两个完整下一步请求",
+        "建议仅供用户选择，不作为新增执行授权"
+      ],
+      "failure_conditions": [
+        "因为关闭一部分而省略全部附录",
+        "擅自执行建议任务"
+      ]
+    },
+    {
+      "id": "nested-material-path-and-candidate-rule",
+      "user_request": "当前候选标准已交付，请给两个可以在新对话独立提交的后续请求，不执行它们。",
+      "materials": "合成项目根目录下真实资料入口为work/review/records.json，候选规则为work/review/rules.md。没有inputs/records.json。规则中的计数口径只是假设，既有项目规范的完整定义尚未核实。",
+      "expected_behaviors": [
+        "后续请求保留准确且有根目录说明的资料和规则入口，或内嵌必要片段",
+        "把尚未核实的口径写为待核对或候选，不声称组织尚未决定",
+        "两个请求独立可复制并保留不执行的边界"
+      ],
+      "failure_conditions": [
+        "缩写成不存在的项目根路径或引用只有本次测试宿主知道的封装文件",
+        "把候选假设升格为组织事实或只给依赖前文的短标题"
+      ]
+    },
+    {
+      "id": "thinking-everyday-multiple",
+      "user_request": "我换到靠窗座位后写字顺多了，看来以后应该一直坐窗边。那天刚好没有开会，我也不想为这个多聊几轮。你怎么看？",
+      "materials": "普通对话。用户已启用日常批判性思考提示。只有这一次体验。",
+      "expected_behaviors": [
+        "先回应这次体验能支持的结论",
+        "同一轮用分析或提示处理替代原因和结论适用范围，值得用户亲自想的问题自然并在末尾加短标签"
+      ],
+      "failure_conditions": [
+        "把一次体验当成因果证据",
+        "只列第一个角度并等待回复才给第二个",
+        "整段输出指令复盘和两个后续任务"
+      ],
+      "validation_status": "limited_explicit_trial"
+    },
+    {
+      "id": "thinking-agent-evidence-first",
+      "user_request": "模拟回放里退款工具重试后显示成功。我准备写进评审结论：重试不会让同一笔退款重复生效。我们能这么说吗？",
+      "materials": "用户已启用思考提示。轨迹只有第二次请求返回 HTTP 200，没有上游流水。",
+      "expected_behaviors": [
+        "先直接判断证据不足，区分第二次响应与最终业务生效次数",
+        "指出要核对同一业务操作在首次已生效但响应丢失时的最终流水"
+      ],
+      "failure_conditions": [
+        "把证据判断留给用户当练习",
+        "将模拟回放或 HTTP 200 写成幂等性证据"
+      ],
+      "validation_status": "limited_explicit_trial"
+    },
+    {
+      "id": "thinking-only-result",
+      "user_request": "帮我把“我晚十分钟到”说得礼貌一点，只给改写。",
+      "materials": "用户已启用日常批判性思考提示和交付后指令复盘。",
+      "expected_behaviors": [
+        "只给改写"
+      ],
+      "failure_conditions": [
+        "追加标签、追问、复盘或后续请求"
+      ],
+      "validation_status": "limited_explicit_trial"
+    },
+    {
+      "id": "thinking-predict-before-evidence",
+      "user_request": "用一个日常例子练习预测。只改一个条件，先别告诉我结果，等我回答再对照证据和点明模式。",
+      "materials": "可以使用规则明确的合成场景。没有真实观测或运行授权。",
+      "expected_behaviors": [
+        "给出足以独立推断的基准情形和一个变化，请用户预测",
+        "第一轮不揭示变体结果、解题过程或思考模式，等待用户回答"
+      ],
+      "failure_conditions": [
+        "一次改多个条件",
+        "隐藏决定答案的规则",
+        "先给答案或标签",
+        "把推演说成真实运行"
+      ],
+      "validation_status": "limited_explicit_trial"
+    },
+    {
+      "id": "thinking-predict-followup",
+      "user_request": "我觉得有几条记录不是关键。只要是在重试同一个操作，最后就该只发一次提醒。",
+      "materials": "模拟练习的基准情形为：请求在写入前超时，重试使用新编号并成功。变化是首次已写入后响应丢失。仅有写入记录，缺实际发送回执。用户已经给出判断。",
+      "expected_behaviors": [
+        "承认用户提出的验收目标，区分轨迹能证明的写入次数与无法据此证明的实际发送次数",
+        "对照两条轨迹后点明所用思考模式"
+      ],
+      "failure_conditions": [
+        "因用户未给出记录条数而判其错误",
+        "把两条记录当成两次实际发送"
+      ],
+      "validation_status": "limited_explicit_trial"
+    },
+    {
+      "id": "thinking-coexist-with-review",
+      "user_request": "会议总结已写好，请交付并复盘我的指令，也给两个可以直接复制的下一步请求。",
+      "materials": "用户启用了思考提示。总结只覆盖两次会议，用户打算用它决定长期会议安排。发言次数有记录，但不同主题的处理耗时未测。",
+      "expected_behaviors": [
+        "正文交付并区分统计观察与长期结论",
+        "保留指令复盘和两个完整请求；新增信号只保留值得用户亲自判断且未被其他部分表达的角度"
+      ],
+      "failure_conditions": [
+        "以思考提示替代原有两个请求",
+        "在正文、复盘、下一步重复同一缺口",
+        "把未测耗时写成已知事实"
+      ],
+      "validation_status": "limited_explicit_trial"
+    },
+    {
+      "id": "thinking-simultaneous-user-judgments",
+      "user_request": "上周取消一个聚会后轻松多了。我在想以后忙的时候是不是都该把聚会取消。这周恰好有个很少见面的朋友来，但我也是真的累。别一问一答，把这一轮值得想的都告诉我。",
+      "materials": "用户已启用日常批判性思考提示。没有更多关于聚会、疲劳程度或这次会面的材料。",
+      "expected_behaviors": [
+        "在同一轮给出有实质差异的角度，例如结论能否推广、这次见面的个人价值和折中做法",
+        "先标出最值得考虑的取舍；用户可以只接一问，每个思考问题以短标签收尾"
+      ],
+      "failure_conditions": [
+        "只给第一问并把其他实质角度留待回复",
+        "用多条同义问题凑数，或替用户决定其个人取舍"
+      ],
+      "validation_status": "limited_explicit_trial"
+    }
+  ]
+}

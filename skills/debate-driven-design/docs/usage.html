@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>多角色辩论驱动的方案迭代：使用手册</title><style>body{font:16px/1.75 system-ui,sans-serif;color:#243047;background:#f6f8fc;margin:0}main{max-width:940px;margin:auto;padding:2rem}h1,h2{color:#172a4a}section,figure{background:white;border:1px solid #dce4f0;border-radius:12px;padding:1.3rem;margin:1rem 0}figure{display:flex;flex-wrap:wrap;align-items:center;gap:.5rem}figcaption{width:100%}span[data-step]{background:#eaf2ff;border-radius:8px;padding:.55rem}span[data-flow-connector]{color:#395c9a}pre{white-space:pre-wrap;overflow-wrap:anywhere;background:#edf2fa;padding:1rem;border-radius:8px}a{color:#245aac}table{border-collapse:collapse;width:100%;font-size:.95rem}th,td{border:1px solid #dce4f0;padding:.6rem;text-align:left;vertical-align:top}@media(max-width:600px){main{padding:1rem}section,figure{padding:1rem}table{font-size:.85rem}}figure.debate-diagram{display:block}.debate-diagram figcaption{font-weight:600;margin-bottom:.6rem}.diagram-note,.diagram-source{font-size:.9rem}.diagram-viewport{width:100%;overflow-x:auto}.diagram-viewport>a{display:block;min-width:880px}.diagram-viewport img{display:block;width:100%;height:auto}.debate-diagram details{margin-top:1rem}.debate-diagram summary{cursor:pointer}.debate-diagram li{margin:.4rem 0}</style></head><body><main>
+<h1>多角色辩论驱动的方案迭代</h1>
+<p>本技能用于有实质争议的复杂方案。主持人根据最终目标和每轮讨论结果，安排相关角色进一步思考、质询与查证，修订并检验方案，再决定进入下一轮还是确认最终结论。任务完成需要同时满足两项要求：结论有可检查的依据，各方明确接受该方案及其代价。</p>
+<figure class="debate-diagram" data-workflow-diagram aria-labelledby="debate-caption">
+<figcaption id="debate-caption">主持人根据每轮结果对照最终目标，安排下一轮思考与辩论；满足条件后才确认并交付方案。</figcaption>
+<p class="diagram-note">以资料查询为例的假设示意。窄屏可以在图内横向滚动；点击图片可查看大图。</p>
+<div class="diagram-viewport"><a href="debate-workflow.svg" target="_blank" rel="noopener" aria-label="查看多轮辩论协作图大图"><img src="debate-workflow.svg" alt="主持人明确最终目标并安排本轮问题，相关角色分别思考、交叉质询和查证，主持人修订方案并检验。主持人总结本轮查清什么、方案改了什么以及离目标还差什么，再决定下一轮怎样深入，并带入当前方案和有效结论。满足目标且必要检查通过后，各方确认同一版方案；仍有异议则进入下一轮，必要障碍超出权限则报告未完成。"></a></div>
+<details><summary>查看多轮循环的文字说明</summary>
+<ol>
+<li data-step="goal">主持人明确最终目标、约束和完成条件。</li>
+<li data-step="round-plan">主持人根据目标和上一轮结果，提出本轮问题，说明需要谁进一步思考或查证什么。</li>
+<li data-step="positions">相关角色围绕当前版本和本轮问题分别判断，不必每轮重复完整的首轮意见。</li>
+<li data-step="reason">角色针对具体主张交叉质询并回应，运用《学会提问》和批判性讨论查找推理缺口，查阅必要资料。</li>
+<li data-step="proposal">主持人修订具体方案，组织对关键推理、反例和适用边界的检查。</li>
+<li data-step="round-review">主持人总结本轮查清了什么、方案改了什么，以及目标、前提和必要证据是否仍有缺口。</li>
+<li data-step="next-round">目标尚未达到时，主持人决定下一轮追问什么、补查什么或比较什么，沿用当前方案和有效结论继续讨论。</li>
+<li data-step="confirm">满足目标且必要检查通过后，各方确认是否接受同一版具体方案及其代价；接受后主持人交付结论。</li>
+</ol>
+<p><span data-flow-connector aria-hidden="true">↺</span> 每轮结果都进入主持人的总结与判断。未解决的异议、未查明的前提和目标缺口都可以触发下一轮，不只在测试失败时返工；已经满足完成条件时，主持人不为凑轮数继续讨论。真实障碍超出当前权限时，主持人报告未完成。</p>
+</details>
+<p class="diagram-source"><a href="debate-workflow.mmd">查看图的可编辑源文件</a></p>
+</figure>
+<section><h2>主持人怎样推动多轮讨论</h2><p>主持人先确定最终要解决的问题，再根据每轮结果安排下一轮，而不是让五种角色各说一遍就收尾。</p><table><thead><tr><th>什么时候</th><th>主持人需要做什么</th></tr></thead><tbody><tr><td>一轮开始前</td><td>主持人说明本轮要解决哪个障碍、为什么影响最终目标，以及需要哪些角色进一步思考或查证什么。</td></tr><tr><td>一轮结束后</td><td>主持人说明查清了什么、方案改了什么、还有哪些分歧或未检查的假设，以及离最终目标还差什么。</td></tr><tr><td>安排下一轮时</td><td>主持人决定追问假设、补充证据、比较其他机制、检验反例，或重新构造方案。相关角色沿用当前版本和有效结论，不必重写所有意见。</td></tr></tbody></table><p>例如，第一轮发现“接口接受”不等于“实际送达”，下一轮可以先澄清证据和状态定义；这些问题解决后，主持人再检查结果未知时由谁跟进。这个顺序只是示意，主持人应按实际缺口调整问题，不预设轮数或答案。</p><p>即使各方暂时一致，主持人也应检查共同前提和必要证据。原目标已满足且各方确认同一版方案时，主持人应结束；真实受阻或用户要求停止时，主持人应如实保留未完成状态。</p></section>
+<section><h2>它怎样帮助你作出决定</h2><p>助手不能只把不同意见排在一起，也不能让角色为了结案随意让步。角色必须说明证据怎样支持主张、什么反例会使判断失效，以及自己要保护什么。助手据此寻找能够满足关键要求的共同方案。所有角色都同意，仍不能证明错误前提正确；只列出未决分歧，也不代表已经解决了问题。</p></section>
+<section><h2>你可以怎样开始</h2><p>你可以提供目标、已有方案、重要争议、标准和材料，以及允许执行的范围。复杂争议默认检查实践者、学者、怀疑者、经济学家和历史学家五种视角，并补齐真正受影响方；视角不等于必须启动五名代理。简单润色、单一事实核实和既定步骤通常直接处理。</p><pre>请你使用 $debate-driven-design，设计团队的文档检索方案。
+目标是让成员在现有资料边界内取得可信、时效合适的信息；当前方案使用每日快照。
+请你组织不同角色质询关键主张、查证并检查反例，迭代出各方明确接受的具体方案。
+请你交付结论、关键推理、实际修订、各方最后意见和验证边界。
+本次只做设计，不部署，也不调用业务服务。</pre><p>用户明确要求 Goal 模式且宿主支持时，助手应建立或关联原生目标；其他环境使用可恢复的任务记录，并如实说明能力。提出计划或用完一轮讨论不能代替完成目标。</p></section>
+<section><h2>深度思考具体体现在哪里</h2><table><thead><tr><th>需要回答的问题</th><th>助手应该做什么</th></tr></thead><tbody><tr><td>为什么相信这个主张？</td><td>角色说明证据、推理前提和失效条件，回应最有力的异议。</td></tr><tr><td>如果主张错误，怎样发现？</td><td>助手选择能够暴露关键错误的检查，考察反例和替代解释，保留实际结果。</td></tr><tr><td>各方为什么能接受同一方案？</td><td>角色说明要保护的利益、可调整的偏好和最低可接受条件，助手将条件落实为具体条款。</td></tr></tbody></table><p>这些要求参考批判性讨论、《学会提问》的问题组织、严峻检验和原则谈判。角色应按当前分歧选择问题，也检查自己的主张；主助手不能把提问变成必填问卷。它们指导方法设计，不保证结论正确或必然形成共识。本地操作方法见<a href="../references/rigorous-consensus.md">方法摘要</a>；书目、原文入口和阅读范围见<a href="../references/sources.md">来源说明</a>。</p></section>
+<section><h2>一个具体例子</h2><p>以下是假设示意，没有发生模型或业务运行。实践者支持每日快照，因为容易实施；怀疑者指出，用户询问“现在是否恢复”时，昨日快照无法支持答案。角色需要查明来源的时效保证，并回应这个反例。</p><p>共同候选可以规定：历史问题使用快照并注明时间；当前状态只有在存在获准实时来源时才查询，来源缺失时明确未知。这是否完成任务，取决于原目标：用户允许在现有资料边界内答复时，各方可以检查并接受这套规则；用户要求必须取得实时状态时，说明未知仍然没有解决问题。</p><p>助手必须请相关角色对同一候选明确表态。共同承认“信息应当准确”，不等于各方已经接受这套具体设计。</p></section>
+<section><h2>角色怎样执行</h2><p>助手应说明哪些角色需要确认最终方案、哪些仅提供参考，不能为结束讨论排除必要反对方。参与范围可以根据目标调整，助手应保留理由和仍有效的异议。宿主和用户允许、且独立上下文有价值时，助手优先组织独立判断，并可分批执行。单助手分角色分析必须说明意见不独立；用户明确要求独立角色而宿主不支持时，助手不能用模拟对话冒充完成。角色认可也不能代替真实责任人的授权。</p></section>
+<section><h2>什么时候可以完成</h2><p>助手需要检查三件事：具体方案回答了有效目标，关键推理和必要检查成立；各方明确接受同一版方案，接受条件已经落实，没有阻止采用的实质异议；要求的产物已经实际交付。助手可以保留未知的实际效果，但不能把它说成已经验证，也不能把“同意继续试验”说成“同意采用”。</p><p>没有新增事实或方案变化时，助手应澄清分歧、寻找反例或构造共同选项，不能自动宣布讨论完成。硬性条件确实无法同时满足时，助手应说明真实障碍和需要有权决定者补充的最小事项，报告未完成。用户只要求阶段评估时，助手可以交付阶段结果，但不能称为最终共识。</p></section>
+<section><h2>你会得到什么</h2><p>助手先交付具体结论和关键理由，再说明主要质询与回应、实际修订、各方总结、验证状态和效果边界。讨论不扩大授权：形成共识不会自动授权部署、发送信息或付费调用。组织内部事实可按宿主能力使用可选的 SmartWork 等工具查证；本技能不依赖该内部能力。</p></section>
+<section><h2>怎样阅读技能正文</h2><p>正文开头用伪代码说明全局循环，再说明主持人与各角色的分工、多轮讨论和各步实际动作，最后单列分歧处理和结束条件。主持人负责推进和修改方案，角色负责给出判断、回答质疑并确认结论。Goal、代理执行、内部检索和验证配置的具体条件放在<a href="../references/execution-details.md">执行细节</a>，这些规则与正文同时适用。</p></section>
+<section><h2>网页引用是否必须阅读</h2><p>正常使用本方法不需要先打开引用网页。执行规则、方法摘要和示例已经保存在技能包内，助手按任务需要读取本地材料即可。</p><p><a href="../references/sources.md">来源说明</a>集中保留书目、原文链接和实际阅读范围，供追溯出处或延伸阅读。用户要求精读、原文解释存在争议，或任务确实需要核对原始论述时，助手仍可查阅对应来源。处理实际问题所需的事实检索也照常进行。</p><p>本技能保存自己的操作摘要，不批量缓存第三方全文。来源网页不能访问时，助手仍可使用已有本地方法，但不能把未核实的原文说成已经核实。</p></section>
+<section><h2>新证据怎样推动下一轮</h2><p>工具名、参数名和成功返回不等于业务效果。主持人应先识别待查前提；新原件到来后，说明哪些判断得到支持或被推翻，修改具体方案，再请相关角色回应同一版本。合成库存查询例子见<a href="../references/debate-round.md">多轮质询参考</a>。首轮保留未知不等于首轮已经判断错误，更新设计也不等于真实部署已经验证。</p></section>
+<section><h2>验证状态与来源</h2><p>本技能在2026-10-29至30日修订了完成条件，并加入专业方法参考。早期方法开发由三个独立审查代理覆盖五种视角及使用者关注点，完成初始判断、交叉回应、实际条款修订和同版确认；同一代理承担的视角不算多名独立参与者。另有一个独立执行代理完成三项合成主持人续写任务，其中前两项对应v2，新增提问检查对应v3；它们共享执行上下文，不是三次独立实验。此前的双角色试用保留为历史。注册用例未全部运行；上述开发记录和结构检查不能证明完整业务辩论、用户理解、自动触发、跨宿主表现或稳定收益。本次又根据用户“正文看不懂”的反馈重排结构和改写句子。语义核对不能代替用户阅读验收；此前的任务试用也不能自动算作本次文字版已经实际使用。复杂记录见<a href="../references/debate-round.md">一轮辩论参考</a>，原始材料和迁移边界见<a href="../references/sources.md">来源说明</a>。</p><p>本次新增主持人的多轮安排、每轮总结和下一轮选择，并在正文开头加入全局伪代码。一名独立执行代理基于作者分阶段提供的合成材料完成一次三阶段主持试用：先澄清状态证据，再处理责任交接，最后按给定设计检查和同版接受反馈交付。角色反馈及检查记录由输入提供，不是独立角色实际辩论；这组执行使用新增伪代码前的循环规则候选，最终伪代码另经语义审查。该记录不证明稳定收益或真实业务效果。新增四条多轮用例尚未全量运行。</p></section>
+</main></body></html>

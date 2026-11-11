@@ -1,5 +1,13 @@
 # Changelog
 
+## 同步 debate-driven-design 与 prompt-coach — 2026-11-11
+
+- 收录两个完整技能包，保留中文入口、界面配置、按需参考、MIT 许可证与独立 HTML 使用手册。
+- `debate-driven-design` 保留主持人组织多轮质询、查证、修订与同版方案确认的方法。
+- `prompt-coach` 同步包含日常批判性思考提示的当前工作区版本。
+- 同步对应合成用例，并更新 README 入口；原有论文阅读技能与项目维护技能保持不变。
+- 本次检查范围为结构、迁移完整性与仓库同步；没有重新执行模型行为评测或安装。详见[同步验证记录](docs/validation-skills-sync-20261111.md)。
+
 ## paper-deep-reading 1.2.0、中文描述与项目维护 — 2026-10-16
 
 - `paper-deep-reading` 升级到 1.2.0：触发描述、短描述与默认提示使用中文，并新增二维或三维动态解释路径。

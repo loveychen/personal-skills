@@ -1,0 +1,6 @@
+interface:
+  display_name: "指令与思考教练"
+  short_description: "交付后复盘指令并给出下一步请求，也可在日常对话中练习批判性思考"
+  default_prompt: "使用 $prompt-coach，对照原指令与实际结果，给出逻辑清楚、术语准确且易读的改写或保留示例，解释具体调整及其作用，按明确偏好校正口语化表达并说明通行术语，核对条件和行为不变；再用两个独立 text 代码块展示完整下一步请求；说明证据如何支持建议、将推进什么判断，以及经验的适用条件。"
+policy:
+  allow_implicit_invocation: true
